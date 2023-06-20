@@ -1,0 +1,198 @@
+Lecture 8 : Web Elements in Python Selenium [ Part - 2 ]
+=========================================
+### sample website ###
+https://www.saucedemo.com/
+
+-----------------------------------------------------------------------------------------------
+### Html Elements for saucedemo.com ###
+
+<input class="input_error form_input" placeholder="Username" type="text" data-test="username" id="user-name" name="user-name" autocorrect="off" autocapitalize="none" value="">
+
+## <Username>
+1. ID - ->  "user-name"
+2. name=
+3. cssSelector
+4. xpath
+5. TagName
+6. className
+7. Linktext
+8. partialLinkText
+
+###################
+
+<input class="input_error form_input" placeholder="Password" type="password" data-test="password" id="password" name="password" autocorrect="off" autocapitalize="none" value="">
+
+## <Password>
+1. ID - ->  "password"
+2. name=
+3. cssSelector
+4. xpath
+5. TagName
+6. className
+7. Linktext
+8. partialLinkText
+
+###################
+
+<input type="submit" class="submit-button btn_action" data-test="login-button" id="login-button" name="login-button" value="Login">
+
+## <Login Button>
+1. ID - ->  "login-button"
+2. name=
+3. cssSelector
+4. xpath
+5. TagName
+6. className
+7. Linktext
+8. partialLinkText
+
+###################
+
+## Login credentials 
+
+Accepted usernames are:
+
+standard_user
+locked_out_user
+problem_user
+performance_glitch_user
+
+Password for all users:
+
+secret_sauce
+-----------------------------------------------------------------------------------------------
+## Script For selenium 
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver.get("https://www.saucedemo.com/")
+title = driver.title
+driver.maximize_window()
+print(title)
+driver.quit()
+
+-----------------------------------------------------------------------------------------------
+Now we will try to login our websites via selenii
+
+## Import
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+
+
+## To make chrome browser run untill we exit, only for my chrome
+options = Options()
+options.add_experimental_option("detach", True)
+
+
+## Run browser
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver.get("https://www.saucedemo.com/")
+
+
+## Auto login for testing
+user_nm = driver.find_element(By.ID, "user-name")
+passwd = driver.find_element(By.ID, "password")
+login = driver.find_element(By.ID, "login-button")
+
+user_nm.send_keys("standard_user")
+passwd.send_keys("secret_sauce")
+login.click()
+
+
+## Other commands 
+driver.maximize_window()
+
+-----------------------------------------------------------------------------------------------
+#########  Finall script  ##############
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import time
+
+options = Options()
+options.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver.maximize_window()
+driver.get("https://www.saucedemo.com/")
+
+time.sleep(1)
+
+
+# Auto login for testing
+user_nm = driver.find_element(By.ID, "user-name")
+passwd = driver.find_element(By.ID, "password")
+login = driver.find_element(By.ID, "login-button")
+
+
+
+user_nm.send_keys("standard_user")
+passwd.send_keys("secret_sauce")
+time.sleep(1)
+login.click()
+time.sleep(2)
+driver.quit()
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

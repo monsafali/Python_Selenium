@@ -1,0 +1,29 @@
+Lecture 10 : Web Elements in Python Selenium [ Part - 4 ]
+===========================================
+#### auto login Gmail ####
+
+-----------------------------------------------------------------------------------------------
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+# Firefox Driver
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+
+driver.maximize_window()
+
+driver.get("https://www.google.com/gmail/about/")
+
+# Sign in option
+driver.find_element(By.XPATH, "/html/body/header/div/div/div/a[2]").click()
+
+# email id
+driver.find_element(By.ID, "identifierId").send_keys("automationenginev12@gmail.com")
+driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[2]/div/div[1]/div/div/button/span").click()
+
+
+#Password
+driver.find_element(By.CLASS_NAME, "whsOnd zHQkBf").send_keys("$BashPython001")
+driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d").click()
+time.sleep(1)

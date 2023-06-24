@@ -1,0 +1,173 @@
+Lecture 14 : Working with Different elements [ Part - 1 ]
+========================================
+### Testing Website ### 
+https://www.saucedemo.com/inventory.html
+https://www.wikipedia.org/
+Sript is below
+
+-----------------------------------------------------------------------------------------------
+### DropDown ###
+A dropdown menu is when you click on it, it shows a list of things
+
+-----------------------------------------------------------------------------------------------
+### Drop Down elements ###
+
+<select class="product_sort_container" data-test="product_sort_container">
+<option value="az">Name (A to Z)</option>
+<option value="za">Name (Z to A)</option>
+<option value="lohi">Price (low to high)</option>
+<option value="hilo">Price (high to low)</option>
+</select>
+
+## What I want is that after logging in it should show me contents from price low to high which can be down in the dropdown menu
+
+# Open DropDown
+drop = wait.until(expected_conditions.element_to_be_clickable((By.CLASS_NAME, "product_sort_container")))
+drop.click()
+time.sleep(2)
+
+-----------------------------------------------------------------------------------------------
+## From drop Down choose low to high
+Our class name --> "product_sort_container"
+
+################
+Method1
+
+my_select = driver.find_element(By.CLASS_NAME, "product_sort_container")
+my_select.send_keys("Price (low to high)")
+################
+Method2
+Method for complex websites
+
+##Website --> https://www.wikipedia.org/
+## Id --> searchLanguage
+## Language --> Afrikaans
+
+# Dropdown
+driver.find_element(By.ID, "searchLanguage").send_keys("Afrikaans")
+
+################
+Method3
+In this method we will not send keys, instead we will select from the dropdown menu
+
+##Website --> https://www.wikipedia.org/
+##language --> Latina
+## Id --> searchLanguage
+
+## Import for selection dropdown values
+from selenium.webdriver.support.select import Select
+
+##Code
+my_drop = driver.find_element(By.ID, "searchLanguage")
+select_lang = Select(my_drop)
+select_lang.select_by_visible_text("Latina")
+
+################
+Using method 3 for saucedemo
+
+# drop
+my_drop = driver.find_element(By.CLASS_NAME, "product_sort_container")
+select_lang = Select(my_drop)
+select_lang.select_by_visible_text("Price (low to high)")
+
+################
+Now putting text in select_lang.select_by_visible_text("Price (low to high)") is not a good practice as sometime text in different language may cause error
+For this we can use value
+
+# drop
+my_drop = driver.find_element(By.CLASS_NAME, "product_sort_container")
+select_lang = Select(my_drop)
+select_lang.select_by_value("lohi")
+
+-----------------------------------------------------------------------------------------------
+### Script for sauce demo testing 
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.maximize_window()
+driver.get("https://www.wikipedia.org/")
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
+
+# Auto login for testing
+
+# Email
+mail1 = wait.until(expected_conditions.element_to_be_clickable((By.ID, "user-name")))
+mail1.send_keys("standard_user")
+
+# Passwd
+passwd = wait.until(expected_conditions.element_to_be_clickable((By.ID, "password")))
+passwd.send_keys("secret_sauce")
+time.sleep(2)
+# login
+login = wait.until(expected_conditions.element_to_be_clickable((By.ID, "login-button")))
+login.click()
+
+
+
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

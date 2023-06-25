@@ -1,0 +1,260 @@
+Lecture 15 : Working with Different elements [ Part - 2 ]
+=========================================
+### TASK 1 for Dropdown ###
+
+I want to check how many language available in this select tag. 
+https://www.wikipedia.org/
+
+Output : Total number of option elements is : XX
+
+-----------------------------------------------------------------------------------------------
+
+####### Code #######
+
+options_tag = driver.find_elements(By.TAG_NAME,"option")
+print(len(options_tag))
+
+print("Total Languages available: " + str(len(options_tag)))
+
+time.sleep(2)
+driver.quit()
+
+-----------------------------------------------------------------------------------------------
+#############
+Python full code #
+#############
+
+## Website: https://www.wikipidea.org/
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.maximize_window()
+driver.get("https://www.wikipedia.org/")
+
+
+# drop
+options_tag = driver.find_elements(By.TAG_NAME,"option")
+print("Total Languages available: " + str(len(options_tag)))
+
+time.sleep(2)
+driver.quit()
+
+-----------------------------------------------------------------------------------------------
+#############
+Python full code #
+#############
+
+## Website: https://www.saucedemo.com/
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.maximize_window()
+driver.get("https://www.saucedemo.com/")
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
+
+# Auto login for testing
+
+# Email
+mail1 = wait.until(expected_conditions.element_to_be_clickable((By.ID, "user-name")))
+mail1.send_keys("standard_user")
+
+# Passwd
+passwd = wait.until(expected_conditions.element_to_be_clickable((By.ID, "password")))
+passwd.send_keys("secret_sauce")
+time.sleep(2)
+# login
+login = wait.until(expected_conditions.element_to_be_clickable((By.ID, "login-button")))
+login.click()
+
+time.sleep(1)
+
+# drop
+options_tag = driver.find_elements(By.TAG_NAME,"option")
+print(len(options_tag))
+
+print("Total Languages available: " + str(len(options_tag)))
+
+time.sleep(2)
+driver.quit()
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+### TASK 2 for Anchor tag ###
+
+Please count the total how many link available in below page.
+Link :- https://dev.alnafi.com/
+
+-----------------------------------------------------------------------------------------------
+#############
+Python full code #
+#############
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.maximize_window()
+driver.get("https://dev.alnafi.com/")
+time.sleep(2)
+
+
+# drop
+anchor_tag = driver.find_elements(By.TAG_NAME,"button")
+print(len(anchor_tag))
+
+print("Total links available: " + str(len(options_tag)))
+
+time.sleep(2)
+
+driver.quit()
+-----------------------------------------------------------------------------------------------
+### Enhancement Task1 ###
+
+## I want to show all name of languages available 
+
+#######
+Code
+######
+
+options_tag = driver.find_elements(By.TAG_NAME, "option")
+val = 1
+for i in options_tag:
+    print(f"{val}: {i.text}")we use .text to convert selenium output to text
+    val += 1   
+
+
+## To get ettribiute
+print(f"""{val}: {i.text} , Attribute: {i.get_attribute("lang")}""")
+
+
+#####################
+Output 
+#####################
+1: Afrikaans
+2: Polski
+3: العربية
+4: Asturianu
+5: Azərbaycanca
+6: Български
+7: Bân-lâm-gú / Hō-ló-oē
+8: বাংলা
+9: Беларуская
+10: Català
+11: Čeština
+12: Cymraeg
+13: Dansk
+14: Deutsch
+15: Eesti
+16: Ελληνικά
+17: English
+18: Español
+19: Esperanto
+20: Euskara
+21: فارسی
+22: Français
+23: Galego
+24: 한국어
+25: हिन्दी
+26: Hrvatski
+27: Bahasa Indonesia
+28: Italiano
+29: עברית
+30: ქართული
+31: Latina
+32: Latviešu
+33: Lietuvių
+34: Magyar
+35: Македонски
+36: مصرى
+37: Bahasa Melayu
+38: Bahaso Minangkabau
+39: Nederlands
+40: 日本語
+41: Norsk (bokmål)
+42: Norsk (nynorsk)
+43: Нохчийн
+44: Oʻzbekcha / Ўзбекча
+45: Português
+46: Қазақша / Qazaqşa / قازاقشا
+47: Română
+48: Simple English
+49: Sinugboanong Binisaya
+50: Slovenčina
+51: Slovenščina
+52: Српски / Srpski
+53: Srpskohrvatski / Српскохрватски
+54: Suomi
+55: Svenska
+56: தமிழ்
+57: Татарча / Tatarça
+58: ภาษาไทย
+59: Тоҷикӣ
+60: تۆرکجه
+61: Türkçe
+62: Українська
+63: اردو
+64: Tiếng Việt
+65: Winaray
+66: 粵語
+67: 中文
+68: Русский
+69: Հայերեն
+70: မြန်မာဘာသာ
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+##### I want to search in a particular tab or section ######
+
+options_tag = driver.find_element(By.XPATH, "/html/body/div[1]/div/footer/div[1]/div[2]/div[2]")
+anchor_tags = options_tag.find_elements(By.TAG_NAME, "a")
+print(len(anchor_tags))
+val = 1
+for i in anchor_tags:
+    print(f"""{i.text}  Link: {i.get_attribute("href")}""")
+    val += 1
+
+Output
+Link: https://alnafi.com/tracks/cat
+  Link: https://alnafi.com/tracks/ccstfw
+  Link: https://alnafi.com/tracks/bat
+  Link: https://alnafi.com/tracks/batdot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

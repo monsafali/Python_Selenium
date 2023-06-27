@@ -1,0 +1,246 @@
+Lecture 16 : Working with Different elements [ Part - 3 ]
+=========================================
+#### Elements ####
+-----------------------------------------------------------------------------------------------
+##########
+a_tag = driver.find_element(By.TAG_NAME, "a")
+print(a_tag)
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.maximize_window()
+driver.get("https://alnafi.com/")
+time.sleep(2)
+
+a_tag = driver.find_element(By.TAG_NAME, "a")
+print(a_tag)
+
+time.sleep(2)
+
+driver.quit()
+
+#########
+Output     ##
+#########
+
+<selenium.webdriver.remote.webelement.WebElement (session="5b52f7c2-0e9b-4239-95ad-016e687e153b", element="53281f48-6a5f-4ca2-8316-5a2cbf465ec9")>
+-----------------------------------------------------------------------------------------------
+##########
+a_tag = driver.find_element(By.TAG_NAME, "a").is_displayed()
+print(a_tag) 
+
+is.display workis with hidden values
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.minimize_window()
+driver.get("https://alnafi.com/")
+
+a_tag = driver.find_element(By.TAG_NAME, "a").is_displayed()
+print(a_tag)
+
+time.sleep(2)
+
+driver.quit()
+
+#########
+Output     ##
+#########
+
+True
+
+-----------------------------------------------------------------------------------------------
+##########
+a_tag = driver.find_element(By.TAG_NAME, "no_tag").is_displayed()
+print(a_tag)
+
+is.display workis with hidden values
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.minimize_window()
+driver.get("https://alnafi.com/")
+
+a_tag = driver.find_element(By.TAG_NAME, "no_tag").is_displayed()
+print(a_tag)
+
+time.sleep(2)
+
+driver.quit()
+
+#########
+Output     ##
+#########
+
+Error:
+         selenium.common.exceptions.NoSuchElementException: Message: Unable to locate element: no_tag
+
+-----------------------------------------------------------------------------------------------
+##########
+Creating our own function to check if tag or element is displayed/given or not
+
+##########
+import selenium.common.exceptions
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+import time
+
+def is_avaiable(tag_name):
+    try:
+        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+        driver.minimize_window()
+        driver.get("https://alnafi.com/")
+        driver.find_element(By.TAG_NAME, tag_name)
+        driver.quit()
+        return True
+    except selenium.common.exceptions.NoSuchElementException:
+        return False
+
+-----------------------------------------------------------------------------------------------
+print(is_avaiable('img'))
+
+#########
+Output     ##
+#########
+True
+
+-----------------------------------------------------------------------------------------------
+print(is_avaiable('script'))
+
+#########
+Output     ##
+#########
+True
+
+-----------------------------------------------------------------------------------------------
+print(is_avaiable('no_tag'))
+
+#########
+Output     ##
+#########
+False
+
+-----------------------------------------------------------------------------------------------
+##########
+For 2 or more times 
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.minimize_window()
+driver.get("https://alnafi.com/")
+
+def is_avaiable(tag_name):
+    try:
+        driver.find_element(By.TAG_NAME, tag_name)
+        return True
+    except selenium.common.exceptions.NoSuchElementException:
+        return False
+
+
+print(is_avaiable('notag'))
+print(is_avaiable('img'))
+
+driver.quit()
+
+
+-----------------------------------------------------------------------------------------------
+##########
+Your own Attribiute and value 
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.minimize_window()
+driver.get("https://alnafi.com/")
+
+def is_avaiable(attr,tag_name):
+    try:
+        driver.find_element(by=attr,value=tag_name)
+        return True
+    except selenium.common.exceptions.NoSuchElementException:
+        return False
+
+
+print(is_avaiable(By.TAG_NAME,'notag'))
+print(is_avaiable(By.TAG_NAME,'img'))
+
+driver.quit()
+
+-----------------------------------------------------------------------------------------------
+##########
+Another Logic
+
+##########
+
+from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.by import By
+
+
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver.minimize_window()
+driver.get("https://alnafi.com/")
+
+def is_avaiable(attr,tag_name):
+    if len(driver.find_elements(by=attr,value=tag_name)) == 0:
+        return False
+    else:
+        return True
+
+print(is_avaiable(By.TAG_NAME,'notag'))
+print(is_avaiable(By.TAG_NAME,'img'))
+print(is_avaiable(By.TAG_NAME,'div'))
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
